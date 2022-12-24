@@ -5,8 +5,8 @@ export default function BMR(_opts) {
   let bhCM = _opts.bhCM; // Body height in CM.
   const bhFI = _opts.bhFI; // Body height in Feet/inches. i.e., {feet: f, inches: i} ex. {feet: 5, inches: 11}
   const age = _opts.age; // Age. i.e. bounded by 18-100.
-  const gender = _opts.gender; // Gender. Either 'm' or 'f'.
-  const equation = _opts.type; // Equation. 'MSJE' = Mifflin-St Jeor Equation, 'RHBE' = Revised Harris-Benedict Equation
+  const gender = _opts.gender || "f"; // Gender. Either 'm' or 'f'.
+  const equation = _opts.type || "MSJE"; // Equation. 'MSJE' = Mifflin-St Jeor Equation, 'RHBE' = Revised Harris-Benedict Equation
   const roundedDown = _opts.roundedDown; // If the return value should be rounded down or left exact.
 
   // Conversion Rates.
@@ -85,7 +85,7 @@ export default function BMR(_opts) {
     // Default: 'MSJE'.
     if (gender === "f") {
       // Female BMR = 10W + 6.25H - 5A - 161
-      finalBMR = 10 * bwKG + 6.25 * bhCM - 5 * age + 161;
+      finalBMR = 10 * bwKG + 6.25 * bhCM - 5 * age - 161;
     } else {
       // Male BMR = 10W + 6.25H - 5A + 5
       finalBMR = 10 * bwKG + 6.25 * bhCM - 5 * age + 5;
